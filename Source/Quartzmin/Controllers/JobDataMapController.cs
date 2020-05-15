@@ -7,18 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-
-#region Target-Specific Directives
-#if NETSTANDARD
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.Features;
-#endif
-#if NETFRAMEWORK
-using System.Web.Http;
-using IActionResult = System.Web.Http.IHttpActionResult;
-using System.Web.Http.Results;
-#endif
-#endregion
 
 namespace Quartzmin.Controllers
 {
@@ -57,7 +47,6 @@ namespace Quartzmin.Controllers
             return Html(targetType.RenderView(Services, newValue));
         }
 
-#if NETSTANDARD
         private class BadRequestResult : IActionResult
         {
             public string ReasonPhrase { get; set; }
@@ -67,15 +56,6 @@ namespace Quartzmin.Controllers
                 return Task.FromResult(0);
             }
         }
-#endif
-#if NETFRAMEWORK
-        private class BadRequestResult : IActionResult
-        {
-            public string ReasonPhrase { get; set; }
-            public Task<System.Net.Http.HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken) =>
-                Task.FromResult(new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.BadRequest) { ReasonPhrase = ReasonPhrase });
-        }
-#endif
 
         [HttpGet, ActionName("TypeHandlers.js")]
         public IActionResult TypeHandlersScript()
