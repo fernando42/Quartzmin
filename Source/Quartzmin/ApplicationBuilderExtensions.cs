@@ -36,12 +36,13 @@ namespace Quartzmin
                     await context.Response.WriteAsync(services.ViewEngine.ErrorPage(ex));
                 });
             });
+            
+            app.UseRouting();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(routes =>
             {
-                routes.MapRoute(
-                    name: nameof(Quartzmin),
-                    template: "{controller=Scheduler}/{action=Index}");
+                routes.MapControllerRoute(nameof(Quartzmin),
+                     "{controller=Scheduler}/{action=Index}");
             });
         }
 
@@ -66,9 +67,9 @@ namespace Quartzmin
 
         public static void AddQuartzmin(this IServiceCollection services)
         {
-            services.AddMvcCore()
+            services.AddControllers()
                 .AddApplicationPart(Assembly.GetExecutingAssembly())
-                .AddJsonFormatters();
+                .AddNewtonsoftJson();
         }
 
     }
