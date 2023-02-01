@@ -7,7 +7,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1591</NoWarn>
 
-    <Version>1.0.3</Version>
+    <Version>1.1.2</Version>
     <Product>Quartz.Plugins.RecentHistory</Product>
     <Title>Quartz.NET plugin to persist recent job execution history</Title>
     <Authors>Jan Lucansky</Authors>
@@ -16,10 +16,10 @@
     <PackageTags>quartz;recent;history</PackageTags>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>Copyright © 2018 Jan Lucansky</Copyright>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/jlucansky/Quartzmin</RepositoryUrl>
+    <PackageVersion>1.1.2</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Quartz" Version="3.0.7" />
+    <PackageReference Include="Quartz" Version="3.3.2" />
   </ItemGroup>
 
   <ItemGroup>
