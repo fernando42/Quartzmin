@@ -28,7 +28,6 @@ namespace Quartzmin.Test
             //1.register jobs middleware.
             //services.AddQuartzJob();
             //2.create web page from scheduler.
-            services.AddSingleton<DbMigrator.PostgreSQL.DbMigrationService>();
             services.AddScoped<TestJob>();
             services.AddQuartzmin();
         }
