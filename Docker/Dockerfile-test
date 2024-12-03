@@ -1,0 +1,32 @@
+############################################ build backend ############################################
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-scheduler
+WORKDIR /app
+
+# copy csproj and restore as distinct layers
+COPY ./Quartzmin.Test/*.csproj ./Quartzmin.Test/
+COPY ./Source/Quartz.Plugins.RecentHistory/*.csproj ./Quartz.Plugins.RecentHistory/
+COPY ./Source/Quartzmin/*.csproj ./Quartzmin/
+COPY ./Source/Quartzmin.SelfHost/*.csproj ./Quartzmin.SelfHost/
+
+WORKDIR /app/Quartzmin.Test
+RUN dotnet restore
+
+# copy and publish app and libraries
+WORKDIR /app
+COPY ./Quartzmin.Test/. ./Quartzmin.Test/
+COPY ./Source/Quartz.Plugins.RecentHistory/. ./Quartz.Plugins.RecentHistory/
+COPY ./Source/Quartzmin/. ./Quartzmin/
+COPY ./Source/Quartzmin.SelfHost/. ./Quartzmin.SelfHost/
+WORKDIR /app/Quartzmin.Test
+RUN dotnet publish -c Release -o out
+
+############################################ runtime backend ############################################
+
+# runtime for backend
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime-scheduler
+
+WORKDIR /app
+
+COPY --from=build-scheduler /app/Quartzmin.Test/out ./
+ENTRYPOINT ["dotnet", "Quartzmin.Test.dll"]
