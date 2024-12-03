@@ -19,7 +19,7 @@
     <Copyright>Copyright © 2018 Jan Lucansky</Copyright>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/jlucansky/Quartzmin</RepositoryUrl>
-    <PackageVersion>1.1.2</PackageVersion>
+    <PackageVersion>1.1.4</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
