@@ -42,14 +42,22 @@ namespace CronExpressionDescriptor
       m_expressionParts = new string[7];
       m_parsed = false;
 
-      if (!string.IsNullOrEmpty(options.Locale))
+      try
       {
-        m_culture = new CultureInfo(options.Locale);
+        if (!string.IsNullOrEmpty(options.Locale))
+        {
+          m_culture = new CultureInfo(options.Locale);
+        }
+        else
+        {
+          // If options.Locale not specified...
+          m_culture = new CultureInfo("en-US");
+        }
       }
-      else
+      catch (CultureNotFoundException)
       {
-        // If options.Locale not specified...
-        m_culture = new CultureInfo("en-US");
+        // Fallback to InvariantCulture if the specified culture is not supported
+        m_culture = CultureInfo.InvariantCulture;
       }
 
       if (m_options.Use24HourTimeFormat != null)
